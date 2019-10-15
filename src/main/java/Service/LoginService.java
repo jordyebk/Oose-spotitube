@@ -9,7 +9,7 @@ public class LoginService {
     @Consumes("application/json")
     @Produces("application/json")
     public Response loginUser(){
-        return Response.status(401).build();
+        return Response.status(402).build();
     }
 
     @GET
