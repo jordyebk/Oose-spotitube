@@ -1,5 +1,7 @@
 package Service;
 
+import DTO.UserLoginResponseDTO;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
@@ -9,7 +11,7 @@ public class LoginService {
     @Consumes("application/json")
     @Produces("application/json")
     public Response loginUser(){
-        return Response.status(402).build();
+        return Response.ok().entity(new UserLoginResponseDTO("Jordy Veldhuzen", "1234-1234-1234")).build();
     }
 
     @GET
