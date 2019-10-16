@@ -2,23 +2,23 @@ package DTO;
 
 public class UserLoginDTO {
 
-    private String username;
+    private String user;
     private String password;
 
     public UserLoginDTO() {
     }
 
-    public UserLoginDTO(String username, String password) {
-        this.username = username;
+    public UserLoginDTO(String user, String password) {
+        this.user = user;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getPassword() {
