@@ -1,14 +1,14 @@
 package DTO;
 
-public class UserLoginResponseDTO {
+public class UserTokenDTO {
 
     private String user;
     private String token;
 
-    public UserLoginResponseDTO() {
+    public UserTokenDTO() {
     }
 
-    public UserLoginResponseDTO(String user, String token) {
+    public UserTokenDTO(String user, String token) {
         this.user = user;
         this.token = token;
     }

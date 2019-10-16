@@ -2,7 +2,7 @@ package Service;
 
 import DAO.Interfaces.IUserDAO;
 import DTO.UserLoginDTO;
-import DTO.UserLoginResponseDTO;
+import DTO.UserTokenDTO;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -23,7 +23,7 @@ public class LoginService {
     public Response loginUser(UserLoginDTO dto){
         try {
             userDAO.userLogin(dto);
-            UserLoginResponseDTO responseDTO = new UserLoginResponseDTO(dto.getUser(), generateToken());
+            UserTokenDTO responseDTO = new UserTokenDTO(dto.getUser(), generateToken());
             userDAO.saveToken(responseDTO);
             return Response.ok().entity(responseDTO).build();
         } catch (Exception e) {

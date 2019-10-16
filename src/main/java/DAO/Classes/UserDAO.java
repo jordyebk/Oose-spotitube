@@ -3,7 +3,7 @@ package DAO.Classes;
 import DAO.DatabaseConnection.IDatabaseConnection;
 import DAO.Interfaces.IUserDAO;
 import DTO.UserLoginDTO;
-import DTO.UserLoginResponseDTO;
+import DTO.UserTokenDTO;
 import Exceptions.InvalidUserOrPasswordException;
 import Exceptions.TokenSaveFailedException;
 
@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @Default
 public class UserDAO implements IUserDAO {
@@ -47,7 +46,7 @@ public class UserDAO implements IUserDAO {
         }
     }
 
-    public void saveToken(UserLoginResponseDTO dto) throws TokenSaveFailedException {
+    public void saveToken(UserTokenDTO dto) throws TokenSaveFailedException {
         String query = "UPDATE users SET token = ? WHERE username = ?";
         try (
                 Connection conn = databaseConnection.getConnection();

@@ -1,7 +1,7 @@
 package DAO.Interfaces;
 
 import DTO.UserLoginDTO;
-import DTO.UserLoginResponseDTO;
+import DTO.UserTokenDTO;
 import Exceptions.InvalidUserOrPasswordException;
 import Exceptions.TokenSaveFailedException;
 
@@ -13,5 +13,5 @@ public interface IUserDAO {
      */
     void userLogin(UserLoginDTO dto) throws InvalidUserOrPasswordException;
 
-    void saveToken(UserLoginResponseDTO dto) throws TokenSaveFailedException;
+    void saveToken(UserTokenDTO dto) throws TokenSaveFailedException;
 }
