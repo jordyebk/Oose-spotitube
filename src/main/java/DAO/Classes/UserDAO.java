@@ -6,6 +6,7 @@ import DTO.UserLoginDTO;
 import DTO.UserTokenDTO;
 import Exceptions.InvalidUserOrPasswordException;
 import Exceptions.TokenSaveFailedException;
+import Exceptions.UserNotFoundByTokenException;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class UserDAO implements IUserDAO {
         String query = "SELECT 1 as 'Selected' FROM `users` WHERE username = ? AND password = ?;";
         try (
                 Connection conn = databaseConnection.getConnection();
-                PreparedStatement statement = conn.prepareStatement(query);
+                PreparedStatement statement = conn.prepareStatement(query)
         ) {
             statement.setString(1, dto.getUser());
             statement.setString(2, dto.getPassword());
@@ -59,5 +60,27 @@ public class UserDAO implements IUserDAO {
             e.printStackTrace();
             throw new TokenSaveFailedException();
         }
+    }
+
+    public String getUserByToken(String token) throws UserNotFoundByTokenException {
+        String query = "select username from users where token = ?";
+        try (
+                Connection conn = databaseConnection.getConnection();
+                PreparedStatement statement = conn.prepareStatement(query);
+        ) {
+            statement.setString(1, token);
+
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                return rs.getString("username");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            throw new UserNotFoundByTokenException();
+        }
+
+        throw new UserNotFoundByTokenException();
     }
 }
