@@ -6,10 +6,12 @@ import DTO.UserLoginDTO;
 import DTO.UserTokenDTO;
 import Exceptions.InvalidUserOrPasswordException;
 import Exceptions.TokenSaveFailedException;
+import Exceptions.UserNotAuthorizedException;
 import Exceptions.UserNotFoundByTokenException;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -83,4 +85,24 @@ public class UserDAO implements IUserDAO {
 
         throw new UserNotFoundByTokenException();
     }
+
+    public boolean authorization(String token) throws UserNotAuthorizedException {
+        String query = "SELECT 1 as 'Selected' FROM users WHERE token = ?";
+        try (
+                Connection conn = databaseConnection.getConnection();
+                PreparedStatement statement = conn.prepareStatement(query)
+        ) {
+            statement.setString(1, token);
+
+            ResultSet rs = statement.executeQuery();
+            if(rs.isBeforeFirst()){
+                return true;
+            }
+            throw new UserNotAuthorizedException();
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new UserNotAuthorizedException();
+        }
+    }
+
 }
