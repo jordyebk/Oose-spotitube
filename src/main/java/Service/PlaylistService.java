@@ -22,6 +22,9 @@ public class PlaylistService {
     @Produces("application/json")
     public Response getAllPlaylists(@QueryParam("token") String token) {
         try {
+            if(!userDAO.authorization(token)){
+                return Response.status(403).build();
+            }
             PlaylistsDTO result = playlistDAO.getAllPlaylists(userDAO.getUserByToken(token));
             return Response.ok().entity(result).build();
         } catch (Exception e) {
@@ -36,6 +39,9 @@ public class PlaylistService {
     @Path("/{id}/tracks")
     public Response getAllTracksInPlaylist(@PathParam("id") int playlistId, @QueryParam("token") String token) {
         try {
+            if(!userDAO.authorization(token)){
+                return Response.status(403).build();
+            }
             return Response.ok().entity(trackDAO.getAllTracksInPlaylist(playlistId)).build();
         } catch (Exception e){
             e.printStackTrace();
