@@ -1,26 +1,19 @@
 package Service;
 
 import DAO.Interfaces.IPlaylistDAO;
+import DAO.Interfaces.ITrackDAO;
 import DAO.Interfaces.IUserDAO;
-import DTO.PlaylistDTO;
 import DTO.PlaylistsDTO;
-import Exceptions.UserNotFoundByTokenException;
-
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.List;
 
 @Path("/playlists")
 public class PlaylistService {
 
     private IPlaylistDAO playlistDAO;
     private IUserDAO userDAO;
+    private ITrackDAO trackDAO;
 
     public PlaylistService() {
     }
@@ -37,6 +30,19 @@ public class PlaylistService {
         }
     }
 
+    @GET
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("/{id}/tracks")
+    public Response getAllTracksInPlaylist(@PathParam("id") int playlistId, @QueryParam("token") String token) {
+        try {
+            return Response.ok().entity(trackDAO.getAllTracksInPlaylist(playlistId)).build();
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.status(401).build();
+        }
+    }
+
     @Inject
     void setPlaylistDAO(IPlaylistDAO playlistDAO) {
         this.playlistDAO = playlistDAO;
@@ -45,5 +51,9 @@ public class PlaylistService {
     @Inject
     void setUserDAO(IUserDAO userDAO) {
         this.userDAO = userDAO;
+    }
+
+    @Inject void setTrackDAO(ITrackDAO trackDAO) {
+        this.trackDAO = trackDAO;
     }
 }

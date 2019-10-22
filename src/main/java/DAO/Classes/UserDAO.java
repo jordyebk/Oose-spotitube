@@ -66,7 +66,7 @@ public class UserDAO implements IUserDAO {
         String query = "select username from users where token = ?";
         try (
                 Connection conn = databaseConnection.getConnection();
-                PreparedStatement statement = conn.prepareStatement(query);
+                PreparedStatement statement = conn.prepareStatement(query)
         ) {
             statement.setString(1, token);
 
