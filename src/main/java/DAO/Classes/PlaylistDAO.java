@@ -7,6 +7,7 @@ import DTO.PlaylistsDTO;
 import Exceptions.DeletionException;
 import Exceptions.InsertionError;
 import Exceptions.PlaylistException;
+import Exceptions.UpdateException;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -85,6 +86,24 @@ public class PlaylistDAO implements IPlaylistDAO {
         } catch (Exception e){
             e.printStackTrace();
             throw new InsertionError("Playlist");
+        }
+    }
+
+    public void editPlaylist(PlaylistDTO dto) throws UpdateException {
+        String query = "update playlist\n" +
+                "set name = ?" +
+                "where id = ?";
+
+        try (
+                Connection conn = databaseConnection.getConnection();
+                PreparedStatement statement = conn.prepareStatement(query);
+        ) {
+            statement.setString(1, dto.getName());
+            statement.setInt(2, dto.getId());
+            statement.execute();
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new UpdateException("Playlist");
         }
     }
 }

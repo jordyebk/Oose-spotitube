@@ -87,6 +87,25 @@ public class PlaylistService {
         }
     }
 
+    @PUT
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("/{id}")
+    public Response editPlaylist(PlaylistDTO dto, @QueryParam("token") String token, @PathParam("id") int playlistId) {
+        try {
+            if(!userDAO.authorization(token)){
+                return Response.status(403).build();
+            }
+            playlistDAO.editPlaylist(dto);
+
+            PlaylistsDTO result = playlistDAO.getAllPlaylists(userDAO.getUserByToken(token));
+            return Response.ok().entity(result).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(401).build();
+        }
+    }
+
     @Inject
     void setPlaylistDAO(IPlaylistDAO playlistDAO) {
         this.playlistDAO = playlistDAO;
