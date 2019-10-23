@@ -3,6 +3,7 @@ package Service;
 import DAO.Interfaces.IPlaylistDAO;
 import DAO.Interfaces.ITrackDAO;
 import DAO.Interfaces.IUserDAO;
+import DTO.PlaylistDTO;
 import DTO.PlaylistsDTO;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -63,6 +64,24 @@ public class PlaylistService {
             PlaylistsDTO result = playlistDAO.getAllPlaylists(userDAO.getUserByToken(token));
             return Response.ok().entity(result).build();
         } catch (Exception e){
+            e.printStackTrace();
+            return Response.status(401).build();
+        }
+    }
+
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response addPlaylist(PlaylistDTO dto, @QueryParam("token") String token) {
+        try {
+            if(!userDAO.authorization(token)){
+                return Response.status(403).build();
+            }
+            playlistDAO.insertPlaylist(dto, userDAO.getUserByToken(token));
+
+            PlaylistsDTO result = playlistDAO.getAllPlaylists(userDAO.getUserByToken(token));
+            return Response.ok().entity(result).build();
+        } catch(Exception e) {
             e.printStackTrace();
             return Response.status(401).build();
         }

@@ -5,6 +5,7 @@ import DAO.Interfaces.IPlaylistDAO;
 import DTO.PlaylistDTO;
 import DTO.PlaylistsDTO;
 import Exceptions.DeletionException;
+import Exceptions.InsertionError;
 import Exceptions.PlaylistException;
 
 import javax.enterprise.inject.Default;
@@ -68,6 +69,22 @@ public class PlaylistDAO implements IPlaylistDAO {
         } catch (Exception e) {
             e.printStackTrace();
             throw new DeletionException("Playlist with id: " + playlistId);
+        }
+    }
+
+    public void insertPlaylist(PlaylistDTO dto, String currentUser) throws InsertionError {
+        String query = "insert into playlist (name, owner) values (?, ?)";
+
+        try (
+                Connection conn = databaseConnection.getConnection();
+                PreparedStatement statement = conn.prepareStatement(query);
+        ) {
+            statement.setString(1, dto.getName());
+            statement.setString(2, currentUser);
+            statement.execute();
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new InsertionError("Playlist");
         }
     }
 }
