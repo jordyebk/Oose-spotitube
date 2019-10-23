@@ -5,7 +5,7 @@ import DAO.Interfaces.ITrackDAO;
 import DTO.TrackDTO;
 import DTO.TracksDTO;
 import Exceptions.DeletionException;
-import Exceptions.InsertionError;
+import Exceptions.InsertionException;
 import Exceptions.TrackException;
 import Exceptions.UpdateException;
 
@@ -65,7 +65,7 @@ public class TrackDAO implements ITrackDAO {
     }
 
     @Override
-    public void addTrackToPlaylist(int playlistId, TrackDTO dto) throws InsertionError {
+    public void addTrackToPlaylist(int playlistId, TrackDTO dto) throws InsertionException {
         String query = "insert into trackinplaylist values (?,?)";
 
         try (
@@ -79,7 +79,7 @@ public class TrackDAO implements ITrackDAO {
 
         } catch (Exception e){
             e.printStackTrace();
-            throw new InsertionError("Track " + dto.getId() + " into playlist " + playlistId);
+            throw new InsertionException("Track " + dto.getId() + " into playlist " + playlistId);
         }
     }
 

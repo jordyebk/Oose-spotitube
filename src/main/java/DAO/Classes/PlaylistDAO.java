@@ -5,7 +5,7 @@ import DAO.Interfaces.IPlaylistDAO;
 import DTO.PlaylistDTO;
 import DTO.PlaylistsDTO;
 import Exceptions.DeletionException;
-import Exceptions.InsertionError;
+import Exceptions.InsertionException;
 import Exceptions.PlaylistException;
 import Exceptions.UpdateException;
 
@@ -73,7 +73,7 @@ public class PlaylistDAO implements IPlaylistDAO {
         }
     }
 
-    public void insertPlaylist(PlaylistDTO dto, String currentUser) throws InsertionError {
+    public void insertPlaylist(PlaylistDTO dto, String currentUser) throws InsertionException {
         String query = "insert into playlist (name, owner) values (?, ?)";
 
         try (
@@ -85,7 +85,7 @@ public class PlaylistDAO implements IPlaylistDAO {
             statement.execute();
         } catch (Exception e){
             e.printStackTrace();
-            throw new InsertionError("Playlist");
+            throw new InsertionException("Playlist");
         }
     }
 

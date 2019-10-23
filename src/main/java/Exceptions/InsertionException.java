@@ -1,8 +1,8 @@
 package Exceptions;
 
-public class InsertionError extends Exception {
+public class InsertionException extends Exception {
 
-    public InsertionError(String itemToInsert) {
+    public InsertionException(String itemToInsert) {
         super("There was an error attempting to insert into database: " + itemToInsert);
     }
 }
