@@ -11,7 +11,6 @@ import Exceptions.UserNotFoundByTokenException;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
