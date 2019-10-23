@@ -49,6 +49,25 @@ public class PlaylistService {
         }
     }
 
+    @DELETE
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("/{id}")
+    public Response deletePlaylist(@PathParam("id") int playlistId, @QueryParam("token") String token) {
+        try {
+            if(!userDAO.authorization(token)){
+                return Response.status(403).build();
+            }
+            playlistDAO.deletePlaylist(playlistId);
+
+            PlaylistsDTO result = playlistDAO.getAllPlaylists(userDAO.getUserByToken(token));
+            return Response.ok().entity(result).build();
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.status(401).build();
+        }
+    }
+
     @Inject
     void setPlaylistDAO(IPlaylistDAO playlistDAO) {
         this.playlistDAO = playlistDAO;

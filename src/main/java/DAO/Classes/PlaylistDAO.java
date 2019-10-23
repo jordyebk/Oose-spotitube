@@ -4,6 +4,7 @@ import DAO.DatabaseConnection.IDatabaseConnection;
 import DAO.Interfaces.IPlaylistDAO;
 import DTO.PlaylistDTO;
 import DTO.PlaylistsDTO;
+import Exceptions.DeletionException;
 import Exceptions.PlaylistException;
 
 import javax.enterprise.inject.Default;
@@ -52,6 +53,21 @@ public class PlaylistDAO implements IPlaylistDAO {
             e.printStackTrace();
 
             throw new PlaylistException();
+        }
+    }
+
+    public void deletePlaylist(int playlistId) throws DeletionException {
+        String query = "delete from playlist where id = ?";
+
+        try (
+                Connection conn = databaseConnection.getConnection();
+                PreparedStatement statement = conn.prepareStatement(query);
+        ) {
+            statement.setInt(1, playlistId);
+            statement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DeletionException("Playlist with id: " + playlistId);
         }
     }
 }
