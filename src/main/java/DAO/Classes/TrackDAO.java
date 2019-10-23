@@ -4,11 +4,13 @@ import DAO.DatabaseConnection.IDatabaseConnection;
 import DAO.Interfaces.ITrackDAO;
 import DTO.TrackDTO;
 import DTO.TracksDTO;
+import Exceptions.DeletionException;
+import Exceptions.InsertionError;
 import Exceptions.TrackException;
+import Exceptions.UpdateException;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +34,7 @@ public class TrackDAO implements ITrackDAO {
                 "from trackinplaylist \n" +
                 "where playlistid = ?)";
 
-        return excecuteQuery(query, playlistId);
+        return executeGetTracksQuery(query, playlistId);
     }
 
     public TracksDTO getAllTracksNotInPlaylist(int playlistId) throws TrackException {
@@ -42,10 +44,63 @@ public class TrackDAO implements ITrackDAO {
                 "from trackinplaylist \n" +
                 "where playlistid = ?)";
 
-        return excecuteQuery(query, playlistId);
+        return executeGetTracksQuery(query, playlistId);
     }
 
-    private TracksDTO excecuteQuery(String query, int playlistId) throws TrackException {
+    public void removeTrackFromPlaylist(int playlistId, int trackId) throws DeletionException {
+        String query = "delete from trackinplaylist where trackId = ? AND playlistId = ?";
+
+        try (
+                Connection conn = databaseConnection.getConnection();
+                PreparedStatement statement = conn.prepareStatement(query)
+        ) {
+            statement.setInt(1, trackId);
+            statement.setInt(2, playlistId);
+
+            statement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DeletionException("Track " + trackId + "from playlist " + playlistId);
+        }
+    }
+
+    @Override
+    public void addTrackToPlaylist(int playlistId, TrackDTO dto) throws InsertionError {
+        String query = "insert into trackinplaylist values (?,?)";
+
+        try (
+                Connection conn = databaseConnection.getConnection();
+                PreparedStatement statement = conn.prepareStatement(query)
+        ) {
+            statement.setInt(1, dto.getId());
+            statement.setInt(2, playlistId);
+            statement.execute();
+            updateTrackAvailability(dto.isOfflineAvailable(), dto.getId());
+
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new InsertionError("Track " + dto.getId() + " into playlist " + playlistId);
+        }
+    }
+
+    private void updateTrackAvailability(boolean availability, int trackId) throws UpdateException {
+        String query = "update track set offlineAvailable = ? where id = ?";
+
+        try (
+                Connection conn = databaseConnection.getConnection();
+                PreparedStatement statement = conn.prepareStatement(query)
+        ) {
+            statement.setBoolean(1, availability);
+            statement.setInt(2, trackId);
+
+            statement.execute();
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new UpdateException("Track with id:" + trackId);
+        }
+    }
+
+    private TracksDTO executeGetTracksQuery(String query, int playlistId) throws TrackException {
         List<TrackDTO> tracks = new ArrayList<>();
         try (
                 Connection conn = databaseConnection.getConnection();
