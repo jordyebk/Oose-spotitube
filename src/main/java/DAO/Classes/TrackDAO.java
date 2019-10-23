@@ -31,6 +31,21 @@ public class TrackDAO implements ITrackDAO {
                 "select trackid \n" +
                 "from trackinplaylist \n" +
                 "where playlistid = ?)";
+
+        return excecuteQuery(query, playlistId);
+    }
+
+    public TracksDTO getAllTracksNotInPlaylist(int playlistId) throws TrackException {
+        String query = "select * from track \n" +
+                "where id not in (\n" +
+                "select trackid \n" +
+                "from trackinplaylist \n" +
+                "where playlistid = ?)";
+
+        return excecuteQuery(query, playlistId);
+    }
+
+    private TracksDTO excecuteQuery(String query, int playlistId) throws TrackException {
         List<TrackDTO> tracks = new ArrayList<>();
         try (
                 Connection conn = databaseConnection.getConnection();
@@ -51,7 +66,7 @@ public class TrackDAO implements ITrackDAO {
                         rs.getString("publicationDate"),
                         rs.getString("description"),
                         rs.getBoolean("offlineAvailable")
-                        ));
+                ));
             }
 
             return new TracksDTO(tracks);
@@ -60,9 +75,5 @@ public class TrackDAO implements ITrackDAO {
 
             throw new TrackException();
         }
-    }
-
-    public TracksDTO getAllTracksNotInPlaylist(int playlistId) {
-        return null; //TODO: Refactoren naar een excecute query functie :)
     }
 }

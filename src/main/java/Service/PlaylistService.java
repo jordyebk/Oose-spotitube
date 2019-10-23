@@ -35,7 +35,6 @@ public class PlaylistService {
     }
 
     @GET
-    @Consumes("application/json")
     @Produces("application/json")
     @Path("/{id}/tracks")
     public Response getAllTracksInPlaylist(@PathParam("id") int playlistId, @QueryParam("token") String token) {
