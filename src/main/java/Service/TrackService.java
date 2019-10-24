@@ -32,16 +32,16 @@ public class TrackService {
             return Response.ok().entity(result).build();
         } catch (Exception e){
             e.printStackTrace();
-            return Response.status(401).build();
+            return Response.status(400).build();
         }
     }
 
-    @Inject void setTrackDAO(ITrackDAO trackDAO) {
+    @Inject public void setTrackDAO(ITrackDAO trackDAO) {
         this.trackDAO = trackDAO;
     }
 
     @Inject
-    void setUserDAO(IUserDAO userDAO) {
+    public void setUserDAO(IUserDAO userDAO) {
         this.userDAO = userDAO;
     }
 }

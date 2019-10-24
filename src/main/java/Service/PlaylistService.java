@@ -33,7 +33,7 @@ public class PlaylistService {
             return Response.ok().entity(result).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.status(401).build();
+            return Response.status(400).build();
         }
     }
 
@@ -49,7 +49,7 @@ public class PlaylistService {
             return Response.ok().entity(result).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.status(401).build();
+            return Response.status(400).build();
         }
     }
 
@@ -86,7 +86,7 @@ public class PlaylistService {
             return Response.ok().entity(result).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.status(401).build();
+            return Response.status(400).build();
         }
     }
 
@@ -105,7 +105,7 @@ public class PlaylistService {
             return Response.ok().entity(result).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.status(401).build();
+            return Response.status(400).build();
         }
     }
 
@@ -123,7 +123,7 @@ public class PlaylistService {
             return Response.ok().entity(result).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.status(401).build();
+            return Response.status(400).build();
         }
     }
 
@@ -142,7 +142,7 @@ public class PlaylistService {
             return Response.ok().entity(result).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.status(401).build();
+            return Response.status(400).build();
         }
     }
 
