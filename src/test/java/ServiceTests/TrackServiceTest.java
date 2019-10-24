@@ -8,7 +8,7 @@ import Exceptions.TrackException;
 import Exceptions.UserNotAuthorizedException;
 import Service.TrackService;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -26,18 +26,17 @@ public class TrackServiceTest {
     private static ITrackDAO trackDAO;
     private static IUserDAO userDAO;
 
-    @BeforeAll
-    public static void setupBeforeAll() {
+    @BeforeEach
+    public void setupBeforeEach() {
         trackDAO = Mockito.mock(TrackDAO.class);
         userDAO = Mockito.mock(UserDAO.class);
-
         trackService = new TrackService();
         trackService.setTrackDAO(trackDAO);
         trackService.setUserDAO(userDAO);
     }
 
     @Test
-    public void getAllTracks() throws UserNotAuthorizedException {
+    public void getAllTracks() throws UserNotAuthorizedException, TrackException {
         Mockito.when(userDAO.authorization(TOKEN)).thenReturn(true);
 
         Response response = trackService.getAllTracks(PLAYLISTID, TOKEN);

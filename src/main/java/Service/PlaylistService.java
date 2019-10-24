@@ -147,17 +147,17 @@ public class PlaylistService {
     }
 
     @Inject
-    void setPlaylistDAO(IPlaylistDAO playlistDAO) {
+    public void setPlaylistDAO(IPlaylistDAO playlistDAO) {
         this.playlistDAO = playlistDAO;
     }
 
     @Inject
-    void setUserDAO(IUserDAO userDAO) {
+    public void setUserDAO(IUserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
     @Inject
-    void setTrackDAO(ITrackDAO trackDAO) {
+    public void setTrackDAO(ITrackDAO trackDAO) {
         this.trackDAO = trackDAO;
     }
 }

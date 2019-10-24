@@ -6,7 +6,7 @@ import DTO.UserLoginDTO;
 import Exceptions.InvalidUserOrPasswordException;
 import Service.LoginService;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -21,8 +21,8 @@ public class LoginServiceTest {
     private static LoginService loginService;
     private static IUserDAO userDAO;
 
-    @BeforeAll
-    public static void setupBeforeAll() {
+    @BeforeEach
+    public void setupBeforeEach() {
         userDAO = Mockito.mock(UserDAO.class);
         loginService = new LoginService(userDAO);
         userLoginDTO = new UserLoginDTO("Username", "Password");
