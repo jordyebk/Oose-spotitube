@@ -15,7 +15,10 @@ public class LoginService {
     private IUserDAO userDAO;
 
     @Inject
-    public void LoginService(IUserDAO userDAO) {this.userDAO = userDAO;}
+    public LoginService(IUserDAO userDAO) {this.userDAO = userDAO;}
+
+    public LoginService() {
+    }
 
     @POST
     @Consumes("application/json")
