@@ -1,14 +1,13 @@
 package DAOTests;
 
-import DAO.Classes.PlaylistDAO;
-import DAO.DatabaseConnection.IDatabaseConnection;
-import DAO.Interfaces.IPlaylistDAO;
-import DTO.PlaylistDTO;
-import DTO.PlaylistsDTO;
-import Exceptions.DeletionException;
-import Exceptions.InsertionException;
-import Exceptions.PlaylistException;
-import Exceptions.UpdateException;
+import dao.classes.PlaylistDAO;
+import dao.databaseconnection.IDatabaseConnection;
+import dao.interfaces.IPlaylistDAO;
+import dto.PlaylistDTO;
+import exceptions.DeletionException;
+import exceptions.InsertionException;
+import exceptions.PlaylistException;
+import exceptions.UpdateException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,12 +1,12 @@
 package DAOTests;
 
-import DAO.Classes.TrackDAO;
-import DAO.DatabaseConnection.IDatabaseConnection;
-import DAO.Interfaces.ITrackDAO;
-import DTO.TrackDTO;
-import Exceptions.DeletionException;
-import Exceptions.InsertionException;
-import Exceptions.TrackException;
+import dao.classes.TrackDAO;
+import dao.databaseconnection.IDatabaseConnection;
+import dao.interfaces.ITrackDAO;
+import dto.TrackDTO;
+import exceptions.DeletionException;
+import exceptions.InsertionException;
+import exceptions.TrackException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

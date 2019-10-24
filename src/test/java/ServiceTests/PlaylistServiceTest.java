@@ -1,15 +1,15 @@
 package ServiceTests;
 
-import DAO.Classes.PlaylistDAO;
-import DAO.Classes.TrackDAO;
-import DAO.Classes.UserDAO;
-import DAO.Interfaces.IPlaylistDAO;
-import DAO.Interfaces.ITrackDAO;
-import DAO.Interfaces.IUserDAO;
-import DTO.PlaylistDTO;
-import DTO.TrackDTO;
-import Exceptions.UserNotAuthorizedException;
-import Service.PlaylistService;
+import dao.classes.PlaylistDAO;
+import dao.classes.TrackDAO;
+import dao.classes.UserDAO;
+import dao.interfaces.IPlaylistDAO;
+import dao.interfaces.ITrackDAO;
+import dao.interfaces.IUserDAO;
+import dto.PlaylistDTO;
+import dto.TrackDTO;
+import exceptions.UserNotAuthorizedException;
+import service.PlaylistService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

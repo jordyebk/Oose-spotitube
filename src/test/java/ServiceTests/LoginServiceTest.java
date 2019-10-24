@@ -1,10 +1,10 @@
 package ServiceTests;
 
-import DAO.Classes.UserDAO;
-import DAO.Interfaces.IUserDAO;
-import DTO.UserLoginDTO;
-import Exceptions.InvalidUserOrPasswordException;
-import Service.LoginService;
+import dao.classes.UserDAO;
+import dao.interfaces.IUserDAO;
+import dto.UserLoginDTO;
+import exceptions.InvalidUserOrPasswordException;
+import service.LoginService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

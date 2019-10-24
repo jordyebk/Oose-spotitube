@@ -1,14 +1,14 @@
 package DAOTests;
 
-import DAO.Classes.UserDAO;
-import DAO.DatabaseConnection.IDatabaseConnection;
-import DAO.Interfaces.IUserDAO;
-import DTO.UserLoginDTO;
-import DTO.UserTokenDTO;
-import Exceptions.InvalidUserOrPasswordException;
-import Exceptions.TokenSaveFailedException;
-import Exceptions.UserNotAuthorizedException;
-import Exceptions.UserNotFoundByTokenException;
+import dao.classes.UserDAO;
+import dao.databaseconnection.IDatabaseConnection;
+import dao.interfaces.IUserDAO;
+import dto.UserLoginDTO;
+import dto.UserTokenDTO;
+import exceptions.InvalidUserOrPasswordException;
+import exceptions.TokenSaveFailedException;
+import exceptions.UserNotAuthorizedException;
+import exceptions.UserNotFoundByTokenException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

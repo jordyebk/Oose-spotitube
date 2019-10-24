@@ -1,12 +1,12 @@
 package ServiceTests;
 
-import DAO.Classes.TrackDAO;
-import DAO.Classes.UserDAO;
-import DAO.Interfaces.ITrackDAO;
-import DAO.Interfaces.IUserDAO;
-import Exceptions.TrackException;
-import Exceptions.UserNotAuthorizedException;
-import Service.TrackService;
+import dao.classes.TrackDAO;
+import dao.classes.UserDAO;
+import dao.interfaces.ITrackDAO;
+import dao.interfaces.IUserDAO;
+import exceptions.TrackException;
+import exceptions.UserNotAuthorizedException;
+import service.TrackService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
