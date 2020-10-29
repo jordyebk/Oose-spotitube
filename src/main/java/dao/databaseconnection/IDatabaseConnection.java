@@ -1,8 +1,8 @@
 package dao.databaseconnection;
 
-import java.sql.Connection;
+import com.mongodb.client.MongoDatabase;
 
 public interface IDatabaseConnection {
 
-    Connection getConnection() throws Exception;
+    MongoDatabase getDatabase() throws Exception;
 }

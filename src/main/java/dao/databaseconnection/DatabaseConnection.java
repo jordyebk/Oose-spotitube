@@ -1,8 +1,10 @@
 package dao.databaseconnection;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
+
 import javax.enterprise.inject.Default;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Properties;
 
 @Default
@@ -13,8 +15,16 @@ public class DatabaseConnection implements IDatabaseConnection{
     }
 
     @Override
-    public Connection getConnection() throws Exception {
-        return null;
+    public MongoDatabase getDatabase() throws Exception {
+        try {
+            Properties prop = new Properties();
+            prop.load(getClass().getClassLoader().getResourceAsStream("database.properties"));
+            MongoClient mongoClient = MongoClients.create(prop.getProperty("mongodburl"));
+            return mongoClient.getDatabase("spotitube");
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        throw new Exception("asd");
     }
 
 //    public Connection getConnection() throws Exception {
