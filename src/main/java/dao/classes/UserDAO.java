@@ -66,11 +66,25 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public String getUserByToken(String token) throws UserNotFoundByTokenException {
-        return null;
+        try {
+            MongoCollection<UserDTO> userCollection = database.getDatabase().getCollection("user", UserDTO.class);
+            UserDTO user = userCollection.find(eq("token", token)).first();
+            if(user != null){
+                return user.getUsername();
+            } else throw new UserNotFoundByTokenException();
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new UserNotFoundByTokenException();
+        }
     }
 
     @Override
     public boolean authorization(String token) throws UserNotAuthorizedException {
-        return false;
+        try {
+            return !getUserByToken(token).equals("");
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new UserNotAuthorizedException();
+        }
     }
 }
