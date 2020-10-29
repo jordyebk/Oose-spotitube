@@ -1,7 +1,9 @@
 package dto;
 
+import org.bson.types.ObjectId;
+
 public class TrackDTO {
-    private int id;
+    private ObjectId id;
     private String title;
     private String performer;
     private int duration;
@@ -11,7 +13,7 @@ public class TrackDTO {
     private String description;
     private boolean offlineAvailable;
 
-    public TrackDTO(int id, String title, String performer, int duration, String album, int playcount, String publicationDate, String description, boolean offlineAvailable) {
+    public TrackDTO(ObjectId id, String title, String performer, int duration, String album, int playcount, String publicationDate, String description, boolean offlineAvailable) {
         this.id = id;
         this.title = title;
         this.performer = performer;
@@ -26,11 +28,11 @@ public class TrackDTO {
     public TrackDTO() {
     }
 
-    public int getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
