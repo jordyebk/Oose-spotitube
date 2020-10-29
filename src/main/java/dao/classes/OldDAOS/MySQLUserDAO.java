@@ -3,7 +3,7 @@
 //import dao.databaseconnection.IDatabaseConnection;
 //import dao.interfaces.IUserDAO;
 //import dto.UserLoginDTO;
-//import dto.UserTokenDTO;
+//import dto.UserDTO;
 //import exceptions.InvalidUserOrPasswordException;
 //import exceptions.TokenSaveFailedException;
 //import exceptions.UserNotAuthorizedException;
@@ -36,7 +36,7 @@
 //                Connection conn = databaseConnection.getConnection();
 //                PreparedStatement statement = conn.prepareStatement(query)
 //        ) {
-//            statement.setString(1, dto.getUser());
+//            statement.setString(1, dto.getUsername());
 //            statement.setString(2, dto.getPassword());
 //            ResultSet rs = statement.executeQuery();
 //            if (!rs.isBeforeFirst()) {
@@ -49,14 +49,14 @@
 //        }
 //    }
 //
-//    public void saveToken(UserTokenDTO dto) throws TokenSaveFailedException {
+//    public void saveToken(UserDTO dto) throws TokenSaveFailedException {
 //        String query = "UPDATE users SET token = ? WHERE username = ?";
 //        try (
 //                Connection conn = databaseConnection.getConnection();
 //                PreparedStatement statement = conn.prepareStatement(query);
 //        ) {
 //            statement.setString(1, dto.getToken());
-//            statement.setString(2, dto.getUser());
+//            statement.setString(2, dto.getUsername());
 //            statement.execute();
 //        } catch (Exception e) {
 //            e.printStackTrace();

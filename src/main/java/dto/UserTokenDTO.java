@@ -1,7 +1,6 @@
 package dto;
 
 public class UserTokenDTO {
-
     private String user;
     private String token;
 
