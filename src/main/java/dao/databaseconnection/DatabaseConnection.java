@@ -12,17 +12,22 @@ public class DatabaseConnection implements IDatabaseConnection{
 
     }
 
+    @Override
     public Connection getConnection() throws Exception {
-        Connection connection;
-        try{
-            Properties prop = new Properties();
-            prop.load(getClass().getClassLoader().getResourceAsStream("database.properties"));
-            Class.forName(prop.getProperty("driver"));
-            connection = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("username"), prop.getProperty("password"));
-            return connection;
-        } catch (Exception e) {
-            e.getMessage();
-        }
-        throw new Exception("asd");
+        return null;
     }
+
+//    public Connection getConnection() throws Exception {
+//        Connection connection;
+//        try{
+//            Properties prop = new Properties();
+//            prop.load(getClass().getClassLoader().getResourceAsStream("database.properties"));
+//            Class.forName(prop.getProperty("driver"));
+//            connection = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("username"), prop.getProperty("password"));
+//            return connection;
+//        } catch (Exception e) {
+//            e.getMessage();
+//        }
+//        throw new Exception("asd");
+//    }
 }
