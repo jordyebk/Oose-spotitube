@@ -2,8 +2,9 @@ package dto;
 
 import org.bson.types.ObjectId;
 
-public class TrackDTO {
-    private int id;
+public class TrackPOJO {
+    private ObjectId id;
+    private int trackId;
     private String title;
     private String performer;
     private int duration;
@@ -13,8 +14,9 @@ public class TrackDTO {
     private String description;
     private boolean offlineAvailable;
 
-    public TrackDTO(int id, String title, String performer, int duration, String album, int playcount, String publicationDate, String description, boolean offlineAvailable) {
+    public TrackPOJO(ObjectId id, int trackId, String title, String performer, int duration, String album, int playcount, String publicationDate, String description, boolean offlineAvailable) {
         this.id = id;
+        this.trackId = trackId;
         this.title = title;
         this.performer = performer;
         this.duration = duration;
@@ -25,27 +27,23 @@ public class TrackDTO {
         this.offlineAvailable = offlineAvailable;
     }
 
-    public TrackDTO() {
+    public TrackPOJO() {
     }
 
-    public TrackDTO(TrackPOJO trackPOJO) {
-        this.id = trackPOJO.getTrackId();
-        this.title = trackPOJO.getTitle();
-        this.performer = trackPOJO.getPerformer();
-        this.duration = trackPOJO.getDuration();
-        this.album = trackPOJO.getAlbum();
-        this.playcount = trackPOJO.getPlaycount();
-        this.publicationDate = trackPOJO.getPublicationDate();
-        this.description = trackPOJO.getDescription();
-        this.offlineAvailable = trackPOJO.isOfflineAvailable();
-    }
-
-    public int getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    public int getTrackId() {
+        return trackId;
+    }
+
+    public void setTrackId(int trackId) {
+        this.trackId = trackId;
     }
 
     public String getTitle() {

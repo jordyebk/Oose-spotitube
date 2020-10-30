@@ -9,12 +9,12 @@ public class PlaylistPOJO {
     private int playlistId;
     private String name;
     private Boolean owner;
-    private List<TrackDTO> tracks;
+    private List<TrackPOJO> tracks;
 
     public PlaylistPOJO() {
     }
 
-    public PlaylistPOJO(ObjectId id, int playlistId, String name, Boolean owner, List<TrackDTO> tracks) {
+    public PlaylistPOJO(ObjectId id, int playlistId, String name, Boolean owner, List<TrackPOJO> tracks) {
         this.id = id;
         this.playlistId = playlistId;
         this.name = name;
@@ -46,11 +46,11 @@ public class PlaylistPOJO {
         this.owner = owner;
     }
 
-    public List<TrackDTO> getTracks() {
+    public List<TrackPOJO> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<TrackDTO> tracks) {
+    public void setTracks(List<TrackPOJO> tracks) {
         this.tracks = tracks;
     }
 

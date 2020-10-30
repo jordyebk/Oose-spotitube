@@ -3,10 +3,7 @@ package dao.classes;
 import com.mongodb.client.MongoCollection;
 import dao.databaseconnection.IDatabaseConnection;
 import dao.interfaces.IPlaylistDAO;
-import dto.PlaylistDTO;
-import dto.PlaylistPOJO;
-import dto.PlaylistsDTO;
-import dto.TrackDTO;
+import dto.*;
 import exceptions.DeletionException;
 import exceptions.InsertionException;
 import exceptions.PlaylistException;
@@ -41,8 +38,8 @@ public class PlaylistDAO implements IPlaylistDAO {
             List<PlaylistDTO> playlistsDTO = new ArrayList<>();
             for (PlaylistPOJO playlist : playlistsPojo) {
                 playlistsDTO.add(new PlaylistDTO(playlist));
-                List<TrackDTO> tracks = playlist.getTracks();
-                totalLength += tracks.stream().mapToInt(TrackDTO::getDuration).sum();
+                List<TrackPOJO> tracks = playlist.getTracks();
+                totalLength += tracks.stream().mapToInt(TrackPOJO::getDuration).sum();
             }
 
             return new PlaylistsDTO(playlistsDTO, totalLength);

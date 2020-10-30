@@ -1,12 +1,13 @@
 package dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistDTO {
     private int id;
     private String name;
     private Boolean owner;
-    private List<TrackDTO> tracks;
+    private List<TrackDTO> tracks = new ArrayList<>();
 
     public PlaylistDTO() {
     }
@@ -22,7 +23,9 @@ public class PlaylistDTO {
         this.id = playlist.getPlaylistId();
         this.name = playlist.getName();
         this.owner = playlist.getOwner();
-        this.tracks = playlist.getTracks();
+        for (TrackPOJO trackPOJO : playlist.getTracks()) {
+            this.tracks.add(new TrackDTO(trackPOJO));
+        }
     }
 
     public int getId() {
