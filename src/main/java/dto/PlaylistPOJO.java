@@ -2,24 +2,34 @@ package dto;
 
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistPOJO {
     private ObjectId id;
     private int playlistId;
     private String name;
-    private Boolean owner;
-    private List<TrackPOJO> tracks;
+    private String owner;
+    private List<TrackPOJO> tracks = new ArrayList<>();
 
     public PlaylistPOJO() {
     }
 
-    public PlaylistPOJO(ObjectId id, int playlistId, String name, Boolean owner, List<TrackPOJO> tracks) {
+    public PlaylistPOJO(ObjectId id, int playlistId, String name, String owner, List<TrackPOJO> tracks) {
         this.id = id;
         this.playlistId = playlistId;
         this.name = name;
         this.owner = owner;
         this.tracks = tracks;
+    }
+
+    public PlaylistPOJO(PlaylistDTO dto, int playlistId, String currentUser) {
+        this.playlistId = playlistId;
+        this.name = dto.getName();
+        this.owner = currentUser;
+        for (TrackDTO trackDTO : dto.getTracks()) {
+            this.tracks.add(new TrackPOJO(trackDTO));
+        }
     }
 
     public ObjectId getId() {
@@ -38,11 +48,11 @@ public class PlaylistPOJO {
         this.name = name;
     }
 
-    public Boolean getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(Boolean owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 

@@ -30,6 +30,18 @@ public class TrackPOJO {
     public TrackPOJO() {
     }
 
+    public TrackPOJO(TrackDTO trackDTO) {
+        this.trackId = trackDTO.getId();
+        this.title = trackDTO.getTitle();
+        this.performer = trackDTO.getPerformer();
+        this.duration = trackDTO.getDuration();
+        this.album = trackDTO.getAlbum();
+        this.playcount = trackDTO.getPlaycount();
+        this.publicationDate = trackDTO.getPublicationDate();
+        this.description = trackDTO.getDescription();
+        this.offlineAvailable = trackDTO.isOfflineAvailable();
+    }
+
     public ObjectId getId() {
         return id;
     }

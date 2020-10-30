@@ -19,10 +19,10 @@ public class PlaylistDTO {
         this.tracks = tracks;
     }
 
-    public PlaylistDTO(PlaylistPOJO playlist) {
+    public PlaylistDTO(PlaylistPOJO playlist, String currentUser) {
         this.id = playlist.getPlaylistId();
         this.name = playlist.getName();
-        this.owner = playlist.getOwner();
+        this.owner = currentUser.equals(playlist.getOwner());
         for (TrackPOJO trackPOJO : playlist.getTracks()) {
             this.tracks.add(new TrackDTO(trackPOJO));
         }

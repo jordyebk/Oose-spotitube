@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Indexes.descending;
 
 @Default
 public class PlaylistDAO implements IPlaylistDAO {
@@ -39,7 +40,7 @@ public class PlaylistDAO implements IPlaylistDAO {
             List<PlaylistPOJO> playlistsPojo = playlistCollection.find().into(new ArrayList<>());
             List<PlaylistDTO> playlistsDTO = new ArrayList<>();
             for (PlaylistPOJO playlist : playlistsPojo) {
-                playlistsDTO.add(new PlaylistDTO(playlist));
+                playlistsDTO.add(new PlaylistDTO(playlist, currentUser));
                 List<TrackPOJO> tracks = playlist.getTracks();
                 totalLength += tracks.stream().mapToInt(TrackPOJO::getDuration).sum();
             }
@@ -69,7 +70,15 @@ public class PlaylistDAO implements IPlaylistDAO {
 
     @Override
     public void insertPlaylist(PlaylistDTO dto, String currentUser) throws InsertionException {
+        try {
+            MongoCollection<PlaylistPOJO> playlistCollection = database.getDatabase().getCollection("playlist", PlaylistPOJO.class);
 
+            playlistCollection.insertOne(new PlaylistPOJO(dto, playlistCollection.find().sort(descending("playlistId")).limit(1).first().getPlaylistId() + 1, currentUser));
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new InsertionException("");
+        }
     }
 
     @Override
