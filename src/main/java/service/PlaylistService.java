@@ -7,6 +7,7 @@ import dto.PlaylistDTO;
 import dto.PlaylistsDTO;
 import dto.TrackDTO;
 import dto.TracksDTO;
+import org.bson.types.ObjectId;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;

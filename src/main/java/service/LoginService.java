@@ -1,7 +1,6 @@
 package service;
 
 import dao.interfaces.IUserDAO;
-import dto.UserDTO;
 import dto.UserLoginDTO;
 import dto.UserTokenDTO;
 

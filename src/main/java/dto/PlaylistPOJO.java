@@ -1,35 +1,32 @@
 package dto;
 
+import org.bson.types.ObjectId;
+
 import java.util.List;
 
-public class PlaylistDTO {
-    private int id;
+public class PlaylistPOJO {
+    private ObjectId id;
+    private int playlistId;
     private String name;
     private Boolean owner;
     private List<TrackDTO> tracks;
 
-    public PlaylistDTO() {
+    public PlaylistPOJO() {
     }
 
-    public PlaylistDTO(int id, String name, Boolean owner, List<TrackDTO> tracks) {
+    public PlaylistPOJO(ObjectId id, int playlistId, String name, Boolean owner, List<TrackDTO> tracks) {
         this.id = id;
+        this.playlistId = playlistId;
         this.name = name;
         this.owner = owner;
         this.tracks = tracks;
     }
 
-    public PlaylistDTO(PlaylistPOJO playlist) {
-        this.id = playlist.getPlaylistId();
-        this.name = playlist.getName();
-        this.owner = playlist.getOwner();
-        this.tracks = playlist.getTracks();
-    }
-
-    public int getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -55,5 +52,13 @@ public class PlaylistDTO {
 
     public void setTracks(List<TrackDTO> tracks) {
         this.tracks = tracks;
+    }
+
+    public int getPlaylistId() {
+        return playlistId;
+    }
+
+    public void setPlaylistId(int playlistId) {
+        this.playlistId = playlistId;
     }
 }

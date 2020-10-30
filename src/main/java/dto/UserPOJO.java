@@ -2,17 +2,17 @@ package dto;
 
 import org.bson.types.ObjectId;
 
-public class UserDTO {
+public class UserPOJO {
 
     private ObjectId id;
     private String username;
     private String password;
     private String token;
 
-    public UserDTO() {
+    public UserPOJO() {
     }
 
-    public UserDTO(String username, String token) {
+    public UserPOJO(String username, String token) {
         this.username = username;
         this.token = token;
     }

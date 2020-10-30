@@ -3,7 +3,7 @@ package dao.classes;
 import com.mongodb.client.MongoCollection;
 import dao.databaseconnection.IDatabaseConnection;
 import dao.interfaces.IUserDAO;
-import dto.UserDTO;
+import dto.UserPOJO;
 import dto.UserLoginDTO;
 import dto.UserTokenDTO;
 import exceptions.InvalidUserOrPasswordException;
@@ -49,8 +49,8 @@ public class UserDAO implements IUserDAO {
     @Override
     public void saveToken(UserTokenDTO dto) throws TokenSaveFailedException {
         try{
-            MongoCollection<UserDTO> userCollection = database.getDatabase().getCollection("user", UserDTO.class);
-            UserDTO user = userCollection.find(eq("username", dto.getUser())).first();
+            MongoCollection<UserPOJO> userCollection = database.getDatabase().getCollection("user", UserPOJO.class);
+            UserPOJO user = userCollection.find(eq("username", dto.getUser())).first();
             if(user != null){
                 user.setToken(dto.getToken());
                 Document filterByUserId = new Document("_id", user.getId());
@@ -67,8 +67,8 @@ public class UserDAO implements IUserDAO {
     @Override
     public String getUserByToken(String token) throws UserNotFoundByTokenException {
         try {
-            MongoCollection<UserDTO> userCollection = database.getDatabase().getCollection("user", UserDTO.class);
-            UserDTO user = userCollection.find(eq("token", token)).first();
+            MongoCollection<UserPOJO> userCollection = database.getDatabase().getCollection("user", UserPOJO.class);
+            UserPOJO user = userCollection.find(eq("token", token)).first();
             if(user != null){
                 return user.getUsername();
             } else throw new UserNotFoundByTokenException();

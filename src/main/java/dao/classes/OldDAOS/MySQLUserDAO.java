@@ -3,7 +3,7 @@
 //import dao.databaseconnection.IDatabaseConnection;
 //import dao.interfaces.IUserDAO;
 //import dto.UserLoginDTO;
-//import dto.UserDTO;
+//import dto.UserPOJO;
 //import exceptions.InvalidUserOrPasswordException;
 //import exceptions.TokenSaveFailedException;
 //import exceptions.UserNotAuthorizedException;
@@ -49,7 +49,7 @@
 //        }
 //    }
 //
-//    public void saveToken(UserDTO dto) throws TokenSaveFailedException {
+//    public void saveToken(UserPOJO dto) throws TokenSaveFailedException {
 //        String query = "UPDATE users SET token = ? WHERE username = ?";
 //        try (
 //                Connection conn = databaseConnection.getConnection();
