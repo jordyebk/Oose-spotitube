@@ -47,7 +47,21 @@ public class TrackDAO implements ITrackDAO {
 
     @Override
     public TracksDTO getAllTracksNotInPlaylist(int playlistId) throws TrackException {
-        return null;
+        try {
+            TracksDTO tracksInPlaylist = getAllTracksInPlaylist(playlistId);
+            ArrayList<Integer> ids = new ArrayList<Integer>();
+            tracksInPlaylist.getTracks().forEach( trackDTO -> ids.add(trackDTO.getId()));
+
+            MongoCollection<TrackPOJO> trackCollection = database.getDatabase().getCollection("track", TrackPOJO.class);
+            List<TrackPOJO> trackPOJOS = trackCollection.find(nin("trackId", ids)).into(new ArrayList<>());
+
+            List<TrackDTO> tracks = new ArrayList<>();
+            trackPOJOS.forEach( trackPOJO -> tracks.add(new TrackDTO(trackPOJO)));
+            return new TracksDTO(tracks);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new TrackException();
+        }
     }
 
     @Override
