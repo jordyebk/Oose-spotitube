@@ -15,6 +15,8 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mongodb.client.model.Filters.*;
+
 @Default
 public class PlaylistDAO implements IPlaylistDAO {
 
@@ -52,7 +54,17 @@ public class PlaylistDAO implements IPlaylistDAO {
 
     @Override
     public void deletePlaylist(int playlistId) throws DeletionException {
+        try {
+            MongoCollection<PlaylistPOJO> playlistCollection = database.getDatabase().getCollection("playlist", PlaylistPOJO.class);
 
+            if (playlistCollection.findOneAndDelete(eq("playlistId", playlistId)) == null){
+                throw new Exception();
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new DeletionException("Playlist with ID: " + playlistId);
+        }
     }
 
     @Override
