@@ -8,6 +8,7 @@ import exceptions.DeletionException;
 import exceptions.InsertionException;
 import exceptions.PlaylistException;
 import exceptions.UpdateException;
+import org.bson.Document;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -83,6 +84,17 @@ public class PlaylistDAO implements IPlaylistDAO {
 
     @Override
     public void editPlaylist(PlaylistDTO dto) throws UpdateException {
-
+        try {
+            MongoCollection<PlaylistPOJO> playlistCollection = database.getDatabase().getCollection("playlist", PlaylistPOJO.class);
+            PlaylistPOJO playlistPOJO = playlistCollection.find(eq("playlistId", dto.getId())).first();
+            if(playlistPOJO != null){
+                playlistPOJO.setName(dto.getName());
+                Document filterByPlaylistId = new Document("_id", playlistPOJO.getId());
+                playlistCollection.findOneAndReplace(filterByPlaylistId, playlistPOJO);
+            } else throw new Exception();
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new UpdateException("Playlist with ID: " + dto.getId());
+        }
     }
 }
