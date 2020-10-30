@@ -7,11 +7,13 @@ import dto.*;
 import exceptions.DeletionException;
 import exceptions.InsertionException;
 import exceptions.TrackException;
+import org.bson.Document;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.*;
@@ -66,11 +68,40 @@ public class TrackDAO implements ITrackDAO {
 
     @Override
     public void removeTrackFromPlaylist(int playlistId, int trackId) throws DeletionException {
+        try{
+            MongoCollection<PlaylistPOJO> playlistCollection = database.getDatabase().getCollection("playlist", PlaylistPOJO.class);
+            PlaylistPOJO playlist = playlistCollection.find(eq("playlistId", playlistId)).first();
 
+            if (playlist == null){
+                throw new Exception();
+            }
+            playlist.getTracks().removeIf(trackPOJO -> trackPOJO.getTrackId() == trackId);
+            Document filterByPlaylistId = new Document("_id", playlist.getId());
+            playlistCollection.findOneAndReplace(filterByPlaylistId, playlist);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new DeletionException("PlaylistID: " + playlistId + " TrackID: " + trackId);
+        }
     }
 
     @Override
     public void addTrackToPlaylist(int playlistId, TrackDTO dto) throws InsertionException {
+        try {
+            MongoCollection<PlaylistPOJO> playlistCollection = database.getDatabase().getCollection("playlist", PlaylistPOJO.class);
+            PlaylistPOJO playlist = playlistCollection.find(eq("playlistId", playlistId)).first();
 
+            MongoCollection<TrackPOJO> trackCollection = database.getDatabase().getCollection("track", TrackPOJO.class);
+            TrackPOJO track = trackCollection.find(eq("trackId", dto.getId())).first();
+
+            if (playlist == null || track == null){
+                throw new Exception();
+            }
+            playlist.getTracks().add(track);
+            Document filterByPlaylistId = new Document("_id", playlist.getId());
+            playlistCollection.findOneAndReplace(filterByPlaylistId, playlist);
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new InsertionException("Track with ID: " + dto.getId() + " In playlist: " + playlistId);
+        }
     }
 }
